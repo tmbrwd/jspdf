@@ -24,7 +24,6 @@
       inputContainer.style.display = "flex";
       inputContainer.style.flexDirection = "column"; 
       inputContainer.style.alignItems = "flex-end"; 
-
       inputContainer.style.marginTop = "20px"; 
 
       const input1 = document.createElement("input");
@@ -166,7 +165,7 @@
       bulletListTextarea2.style.width = "100%";
       bulletListTextarea2.style.height = "10%";
       bulletListTextarea2.style.resize = "none";
-      bulletListTextarea2.setAttribute("name", "bulletList");
+      bulletListTextarea2.setAttribute("name", "bulletList2");
       bulletListTextarea2.setAttribute(
         "placeholder",
         "Press Enter to add a new item to the bullet list"
@@ -185,13 +184,26 @@
       education.textContent = "БОЛОВСРОЛ";
       education.style.fontWeight = "bold";
       education.style.textAlign = "center";
+      education.style.marginBottom = "10px";
 
       const input12 = document.createElement("input");
       input12.setAttribute("type", "text");
-      input12.setAttribute("name", "name");
+      input12.setAttribute("name", "schoolName");
       input12.style.width = "20%";
       input12.placeholder = "Please enter a uni name";
       input12.style.marginBottom = "10px"; 
+
+      const foreignLanguage = document.createElement("p");
+      foreignLanguage.textContent = "ГАДААД ХЭЛ";
+      foreignLanguage.style.fontWeight = "bold";
+      foreignLanguage.style.textAlign = "center";
+
+      const input13 = document.createElement("input");
+      input13.setAttribute("type", "text");
+      input13.setAttribute("name", "schoolName");
+      input13.style.width = "20%";
+      input13.placeholder = "Please enter a school name";
+      input13.style.marginBottom = "10px"; 
 
 
       inputContainer.appendChild(input1);
@@ -218,6 +230,8 @@
       form.appendChild(inputContainer3);
       form.appendChild(bulletListTextarea2);
       form.appendChild(education);
+      form.appendChild(input12);
+      form.appendChild(foreignLanguage)
       form.appendChild(submitButton);
       document.body.appendChild(form);
     </script>
