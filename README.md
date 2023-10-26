@@ -4,10 +4,15 @@ used packages
 +jsPDF
 +pdf-lib
 
-initial command
+1. initial command
 
--npm install
+--npm install
 
-starting command
+2. starting command
 
--npm start
+--npm start
+
+
+Problems:
+
+1. JSPDF AND pdl-lib both dont support UTF-8 encoding
