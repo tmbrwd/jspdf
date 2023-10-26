@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  </head>
+  <body style="background-color: black">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script>
+      const form = document.createElement("form");
+      form.action = "/generate"
+      form.method = "POST";
+      form.style.width = "793.7px"; 
+      form.style.height = "1122.5px"; 
+      form.style.margin = "0 auto";
+      form.style.padding = "10px";
+      form.style.flexDirection = "column";
+      form.style.alignItems = "center";
+      form.style.backgroundColor = "#ffffff";
+
+      const inputContainer = document.createElement("div");
+      inputContainer.style.display = "flex";
+      inputContainer.style.flexDirection = "column"; 
+      inputContainer.style.alignItems = "flex-end"; 
+
+      inputContainer.style.marginTop = "20px"; 
+
+      const input1 = document.createElement("input");
+      input1.setAttribute("type", "text");
+      input1.setAttribute("name", "name");
+      input1.style.width = "20%";
+      input1.placeholder = "Please enter a name";
+      input1.style.marginBottom = "10px"; 
+
+      const input2 = document.createElement("input");
+      input2.setAttribute("type", "email");
+      input2.setAttribute("name", "email");
+      input2.placeholder = "Please enter email address";
+      input2.style.width = "20%";
+      input2.style.marginBottom = "10px";
+
+      const input3 = document.createElement("input");
+      input3.setAttribute("type", "text");
+      input3.setAttribute("name", "City");
+      input3.placeholder = "Please enter city";
+      input3.style.width = "20%";
+      input3.style.marginBottom = "10px";
+
+      const input4 = document.createElement("input");
+      input4.setAttribute("type", "text");
+      input4.setAttribute("name", "PhoneNumber");
+      input4.placeholder = "Phone Number";
+      input4.style.width = "20%";
+
+      const introText = document.createElement("p");
+      introText.textContent = "ТОВЧ ТАНИЛЦУУЛГА";
+      introText.style.fontWeight = "bold";
+      introText.style.textAlign = "center";
+
+      const shortDescription = document.createElement("textarea");
+      shortDescription.style.width = "100%";
+      shortDescription.style.height = "10%";
+      shortDescription.style.resize = "none";
+
+      const workExperience = document.createElement("p");
+      workExperience.textContent = "АЖЛЫН ТУРШЛАГА";
+      workExperience.style.fontWeight = "bold";
+      workExperience.style.textAlign = "center";
+
+      const inputContainer2 = document.createElement("div");
+      inputContainer2.style.display = "flex";
+      inputContainer2.style.flexDirection = "column"; 
+      inputContainer2.style.alignItems = "flex-start"; 
+      inputContainer2.style.marginTop = "20px";
+
+      const input5 = document.createElement("input");
+      input5.setAttribute("type", "text");
+      input5.setAttribute("name", "name");
+      input5.style.width = "20%";
+      input5.placeholder = "Please enter a company name";
+      input5.style.marginBottom = "10px";
+
+      const dateRangeInput = document.createElement("input");
+      dateRangeInput.setAttribute("type", "date");
+      dateRangeInput.setAttribute("name", "dateRange");
+      dateRangeInput.style.width = "20%";
+      dateRangeInput.style.marginBottom = "10px";
+
+      const input7 = document.createElement("input");
+      input7.setAttribute("type", "text");
+      input7.setAttribute("name", "City");
+      input7.placeholder = "Please enter city";
+      input7.style.width = "20%";
+      input7.style.marginBottom = "10px";
+
+      const input8 = document.createElement("input");
+      input8.setAttribute("type", "text");
+      input8.setAttribute("name", "PhoneNumber");
+      input8.placeholder = "Phone Number";
+      input8.style.width = "20%";
+      input8.style.marginBottom = "10px";
+    
+      const submitButton = document.createElement("input");
+      submitButton.setAttribute("type", "submit");
+      submitButton.setAttribute("value", "Submit");
+      submitButton.style.backgroundColor = "#007BFF";
+      submitButton.style.color = "white";
+      submitButton.style.border = "none";
+      submitButton.style.padding = "10px 20px";
+
+      const bulletListTextarea = document.createElement("textarea");
+      bulletListTextarea.style.width = "100%";
+      bulletListTextarea.style.height = "10%";
+      bulletListTextarea.style.resize = "none";
+      bulletListTextarea.setAttribute("name", "bulletList");
+      bulletListTextarea.setAttribute(
+        "placeholder",
+        "Press Enter to add a new item to the bullet list"
+      );
+      bulletListTextarea.addEventListener("keydown", function (event) {
+      
+        if (event.keyCode === 13) {
+          event.preventDefault(); 
+          const currentValue = bulletListTextarea.value;
+          const newValue = currentValue + "\n• ";
+          bulletListTextarea.value = newValue;
+        }
+      });
+
+      const inputContainer3 = document.createElement("div");
+      inputContainer3.style.display = "flex";
+      inputContainer3.style.flexDirection = "column";
+      inputContainer3.style.alignItems = "flex-start"; 
+      inputContainer3.style.marginTop = "20px";
+
+      const input9 = document.createElement("input");
+      input9.setAttribute("type", "text");
+      input9.setAttribute("name", "name");
+      input9.style.width = "20%";
+      input9.placeholder = "Please enter a company name";
+      input9.style.marginBottom = "10px"; 
+
+      const dateRangeInput2 = document.createElement("input");
+      dateRangeInput2.setAttribute("type", "date");
+      dateRangeInput2.setAttribute("name", "dateRange");
+      dateRangeInput2.style.width = "20%";
+      dateRangeInput2.style.marginBottom = "10px";
+
+      const input10 = document.createElement("input");
+      input10.setAttribute("type", "text");
+      input10.setAttribute("name", "name");
+      input10.style.width = "20%";
+      input10.placeholder = "Please enter a company name";
+      input10.style.marginBottom = "10px"; // Add some spacing between the inputs
+
+      const input11 = document.createElement("input");
+      input11.setAttribute("type", "text");
+      input11.setAttribute("name", "name");
+      input11.style.width = "20%";
+      input11.placeholder = "Please enter a company name";
+      input11.style.marginBottom = "10px"; // Add some spacing between the inputs
+
+      const bulletListTextarea2 = document.createElement("textarea");
+      bulletListTextarea2.style.width = "100%";
+      bulletListTextarea2.style.height = "10%";
+      bulletListTextarea2.style.resize = "none";
+      bulletListTextarea2.setAttribute("name", "bulletList");
+      bulletListTextarea2.setAttribute(
+        "placeholder",
+        "Press Enter to add a new item to the bullet list"
+      );
+      bulletListTextarea2.addEventListener("keydown", function (event) {
+      
+        if (event.keyCode === 13) {
+          event.preventDefault(); 
+          const currentValue = bulletListTextarea2.value;
+          const newValue = currentValue + "\n• ";
+          bulletListTextarea2.value = newValue;
+        }
+      });
+
+      const education = document.createElement("p");
+      education.textContent = "БОЛОВСРОЛ";
+      education.style.fontWeight = "bold";
+      education.style.textAlign = "center";
+
+      const input12 = document.createElement("input");
+      input12.setAttribute("type", "text");
+      input12.setAttribute("name", "name");
+      input12.style.width = "20%";
+      input12.placeholder = "Please enter a uni name";
+      input12.style.marginBottom = "10px"; 
+
+
+      inputContainer.appendChild(input1);
+      inputContainer.appendChild(input2);
+      inputContainer.appendChild(input3);
+      inputContainer.appendChild(input4);
+
+      inputContainer2.appendChild(input5);
+      inputContainer2.appendChild(dateRangeInput);
+      inputContainer2.appendChild(input7);
+      inputContainer2.appendChild(input8);
+
+      inputContainer3.appendChild(input9);
+      inputContainer3.appendChild(dateRangeInput2);
+      inputContainer3.appendChild(input10);
+      inputContainer3.appendChild(input11);
+
+      form.appendChild(inputContainer);
+      form.appendChild(introText);
+      form.appendChild(shortDescription);
+      form.appendChild(workExperience);
+      form.appendChild(inputContainer2);
+      form.appendChild(bulletListTextarea);
+      form.appendChild(inputContainer3);
+      form.appendChild(bulletListTextarea2);
+      form.appendChild(education);
+      form.appendChild(submitButton);
+      document.body.appendChild(form);
+    </script>
+  </body>
+</html>
