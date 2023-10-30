@@ -37,74 +37,44 @@
                 <input type="date" class="border rounded p-2" placeholder="Birthdate">
             </div>
         </form>
-        <div class="text-center mt-4">
-            <p class="text-lg font-bold">ТОВЧ ТАНИЛЦУУЛГА</p>
-        </div>
-        <textarea class="w-full h-18 border rounded p-2 resize-none" placeholder="Your message"></textarea>
-        <div class="text-center mt-4">
-            <p class="text-lg font-bold">АЖЛЫН ТУРШЛАГА</p>
-        </div>
-        <div class="text-left mb-2">
-            <input type="text" class="border rounded p-2" placeholder="Company name">
-        </div>
-        <div class="text-left mb-2 flex">
-            <input type="date" class="border rounded p-2">
-            <p>-</p>
-            <input type="date" class="border rounded p-2">
-        </div>
-        <div class="text-left mb-2">
-            <input type="text" class "border rounded p-2" placeholder="Company City">
-        </div>
-        <div class="text-left mb-2">
-            <input type="text" class="border rounded p-2" placeholder="Company Phone">
-        </div>
-        <div class="text-center mt-4">
-            <p class="text-lg font-bold">БОЛОВСРОЛ</p>
-        </div>
-        <div class="text-left mb-2 flex">
-            <input type="text" class="border rounded p-2" placeholder="School name">
-            <input type="text" class="border rounded p-2" placeholder="Year">
-        </div>
-        <textarea class="w-full h-18 border rounded p-2 resize-none" placeholder="Your message"></textarea>
-        <div class="text-center mt-4">
-            <p class="text-lg font-bold">ГАДААД ХЭЛ</p>
-        </div>
-        <div class="flex justify-center gap-20">
-            <p>Ярих</p>
-            <p>Унших</p>
-            <p>Бичих</p>
-        </div>
-        <div class="flex">
-            <input type="text" name="" id="" placeholder="Хэл">
-            <input type="text" name="" id="" placeholder="Ярих">
-            <input type="text" name="" id="" placeholder="Унших">
-            <input type="text" name="" id="" placeholder="Бичих">
-        </div>
-        <div class="text-center mt-4">
-            <p class="text-lg font-bold">Нэмэлт мэдээлэл</p>
-        </div>
-        <textarea class="w-full h-18 border rounded p-2 resize-none" placeholder="Ажил мэргэжлийн зорилго:"></textarea>
-        <textarea class="w-full h-18 border rounded p-2 resize-none" placeholder="Сонирхол:"></textarea>
-        <textarea class="w-full h-18 border rounded p-2 resize-none" placeholder="Амжилт:"></textarea>
-        <textarea class="w-full h-18 border rounded p-2 resize-none" placeholder="Ур чадвар:"></textarea>
     </div>
-    <button type="button" onclick="generatePDF()" class="bg-red-400">Export to PDF</button>
+    <button type="button" id="generatePDFButton" class="btn bg-red-400">Export to PDF</button>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script type="text/javascript">
+        // Function to populate the form fields with local variables
+        function populateForm() {
+            var name = "Ganaa Erdene";
+            var email = "ganaa@example.com";
+            var city = "Ulaanbaatar";
+            var phone = "123-456-7890";
+            var birthdate = "1990-01-01";
+
+            $("input[placeholder='Name']").val(name);
+            $("input[placeholder='Email']").val(email);
+            $("input[placeholder='City']").val(city);
+            $("input[placeholder='Phone']").val(phone);
+            $("input[placeholder='Birthdate']").val(birthdate);
+        }
         function generatePDF() {
+            populateForm(); 
+
             var element = document.getElementById('divToExport');
-            element.style.width = '700px'; // Adjust the width as needed
-            element.style.height = '900px'; // Adjust the height as needed
             var opt = {
-                margin: 0.5,
-                filename: 'myfile.pdf',
-                image: { type: 'jpeg', quality: 1 },
-                html2canvas: { scale: 1 },
+                margin: 0,
+                filename: 'my_file.pdf', 
+                html2canvas: { scale: 4 },
                 jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait', precision: 12 }
             };
 
             html2pdf().set(opt).from(element).save();
         }
+        $(document).ready(function () {
+            $("#generatePDFButton").click(function () {
+                generatePDF();
+            });
+        });
     </script>
 </body>
 </html>
