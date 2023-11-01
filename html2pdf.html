@@ -28,64 +28,15 @@
     </style>
   </head>
   <body class="flex items-center justify-center">
-    <div
-      class="bg-white p-8 rounded-lg shadow-md w-full"
-      id="divToExport"
-    >
-      <form>
-        <div class="text-right mb-2">
-          <input type="text" class="rounded p-2" placeholder="Name" />
-        </div>
-        <div class="text-left mb-2">
-          <input type="text" class="rounded p-2" placeholder="Email" />
-        </div>
-        <div class="text-right mb-2">
-          <input type="text" class="rounded p-2" placeholder="City" />
-        </div>
-        <div class="text-right mb-2">
-          <input type="text" class="rounded p-2" placeholder="Phone" />
-        </div>
-        <div class="text-right mb-2">
-          <input type="date" class="rounded p-2" placeholder="Birthdate" />
-        </div>
-        <div class="text-center mb-2">
-          <p class="font-bold">ТОВЧ ТАНИЛЦУУЛГА</p>
-        </div>
-        <div class="text-center mb-2 w-full">
-          <textarea
-            placeholder="ShortDescription"
-            class="w-full"
-            name="ShortDescription"
-            id=""
-            cols="30"
-            rows="10"
-          ></textarea>
-        </div>
-        <div class="text-center mb-2">
-          <p class="font-bold">АЖЛЫН ТУРШЛАГА</p>
-        </div>
-        <div class="text-left mb-2">
-          <input type="text" class="rounded p-2" placeholder="CompanyName" />
-        </div>
-        <div class="text-left mb-2 flex">
-          <input type="date" class="rounded p-2" name="Start-Date" />
-          <p>-</p>
-          <input type="date" class="rounded p-2" name="End-Date" />
-        </div>
-        <div class="text-left mb-2">
-          <input type="text" class="rounded p-2" placeholder="City" />
-        </div>
-        <div class="text-left mb-2">
-          <input type="text" class="rounded p-2" placeholder="Phone" />
-        </div>
-      </form>
+    <div class="bg-white p-8 rounded-lg shadow-md w-full" id="divToExport">
+      <!-- The form will be dynamically created here -->
     </div>
     <button type="button" id="generatePDFButton" class="btn bg-red-400">
-      Export to PDF
+      Generate PDF
     </button>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <script type="text/javascript">
       function populateForm() {
         var name = "Ganaa Erdene";
@@ -96,37 +47,362 @@
         var shortDescription =
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
         var companyName = "XXX";
-        var startDate = "2023-01-01"; 
+        var startDate = "2023-01-01";
         var endDate = "2023-01-22";
+        var companyCity = "Another City";
+        var companyPhone = "987-654-3210";
+        var occupation = "Web Developer";
+        var achievements = [
+          "Did something in 2018",
+          "Did something in 2019",
+          "Did something in 2020",
+          "Did something in 2021",
+        ];
 
-        $("input[placeholder='Name']").val(name);
-        $("input[placeholder='Email']").val(email);
-        $("input[placeholder='City']").val(city);
-        $("input[placeholder='Phone']").val(phone);
-        $("input[placeholder='Birthdate']").val(birthdate);
-        $("textarea[name='ShortDescription']").val(shortDescription);
-        $("input[placeholder='CompanyName']").val(companyName);
-        $("input[name='Start-Date']").val(startDate);
-        $("input[name='End-Date']").val(endDate);
+        var companyName1 = "XXX";
+        var startDate1 = "2023-01-01";
+        var endDate1 = "2023-01-22";
+        var companyCity1 = "ub City";
+        var companyPhone1 = "123-654-3210";
+        var occupation1 = "Web Developer";
+        var achievements1 = [
+          "Did something in 2018",
+          "Did something in 2019",
+          "Did something in 2020",
+          "Did something in 2021",
+        ];
+
+        var schoolName = "UFE";
+        var gradYear = "2018";
+        var language = "English";
+        var speaking = "Good";
+        var reading = "Good";
+        var writing = "Good";
+
+        var purpose =
+          "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur";
+        var hobbies =
+          "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur";
+        var personalAchievements =
+          "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur";
+        var Skills =
+          "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur";
+
+        // titles
+        var shortDescriptionTitle = "ТОВЧ ТАНИЛЦУУЛГА";
+        var workExperiencesTitle = "АЖЛЫН ТУРШЛАГА";
+        var foreignLanguageTitle = "ГАДААД ХЭЛ";
+        var educationTitle = "БОЛОВСРОЛ";
+        var otherInfoTitle = "Нэмэлт мэдээлэл";
+        var workPurposeTitle = "Ажил мэргэжлийн зорилго:";
+        var hobbiesTitle = "Сонирхол:"
+        var personalAchievementsTitle = "Амжилт:"
+        var skillsTitle = "Ур чадвар:"
+        var form = $("<form></form>");
+
+        //  form.append($("<div>",{class:'text-center mb-2 font-bold'}).append($("<p>",{text:foreignLanguageTitle})));
+        form.append(
+          $("<div>", { class: "text-right" }).append(
+            $("<input>", {
+              type: "text",
+              placeholder: "Name",
+              class: "font-bold",
+            })
+          )
+        );
+        form.append(
+          $("<div>", { class: "text-left" }).append(
+            $("<input>", {
+              type: "text",
+              placeholder: "Email",
+              class: "font-bold text-blue-600 underline",
+            })
+          )
+        );
+        form.append(
+          $("<div>", { class: "text-right" }).append(
+            $("<input>", {
+              type: "text",
+              placeholder: "City",
+              class: "font-bold",
+            })
+          )
+        );
+        form.append(
+          $("<div>", { class: "text-right" }).append(
+            $("<input>", {
+              type: "text",
+              placeholder: "Phone",
+              class: "font-bold",
+            })
+          )
+        );
+        form.append(
+          $("<div>", { class: "text-center mb-2 font-bold" }).append(
+            $("<p>", { text: shortDescriptionTitle })
+          )
+        );
+        form.append(
+          $("<div>", { class: "text-center" }).append(
+            $("<textarea>", {
+              class: "w-full",
+              cols: "30",
+              rows: "3",
+              placeholder: "ShortDesc",
+            })
+          )
+        );
+        form.append(
+          $("<div>", { class: "text-center mb-2 font-bold" }).append(
+            $("<p>", { text: workExperiencesTitle })
+          )
+        );
+
+        // Company number 1
+        form.append(
+          $("<div>", { class: "text-left" }).append(
+            $("<input>", {
+              type: "text",
+              placeholder: "CompanyName",
+              class: "font-bold",
+            })
+          )
+        );
+        form.append(
+          $("<div>", { class: "text-left flex" }).append(
+            $("<input>", { type: "date", name: "Start-Date" }),
+            $("<p>", { class: "mx-1", text: "-" }),
+            $("<input>", { type: "date", name: "End-Date" })
+          )
+        );
+        form.append(
+          $("<div>", { class: "text-left" }).append(
+            $("<input>", { type: "text", placeholder: "companyCity" })
+          )
+        );
+        form.append(
+          $("<div>", { class: "text-left" }).append(
+            $("<input>", {
+              type: "text",
+              placeholder: "occupation",
+              class: "font-bold",
+            })
+          )
+        );
+        form.append(
+          $("<div>", { class: "text-center w-full" }).append(
+            $("<textarea>", {
+              class: "w-full",
+              cols: "30",
+              rows: "2",
+              placeholder: "companyAchievements",
+            })
+          )
+        );
+
+        // Company number 2
+
+        form.append(
+          $("<div>", { class: "text-left" }).append(
+            $("<input>", {
+              type: "text",
+              placeholder: "CompanyName1",
+              class: "font-bold",
+            })
+          )
+        );
+        form.append(
+          $("<div>", { class: "text-left flex" }).append(
+            $("<input>", { type: "date", name: "Start-Date1" }),
+            $("<p>", { class: "mx-1", text: "-" }),
+            $("<input>", { type: "date", name: "End-Date1" })
+          )
+        );
+        form.append(
+          $("<div>", { class: "text-left" }).append(
+            $("<input>", { type: "text", placeholder: "companyCity1" })
+          )
+        );
+        form.append(
+          $("<div>", { class: "text-left" }).append(
+            $("<input>", {
+              type: "text",
+              placeholder: "occupation1",
+              class: "font-bold",
+            })
+          )
+        );
+        form.append(
+          $("<div>", { class: "text-center w-full" }).append(
+            $("<textarea>", {
+              class: "w-full",
+              cols: "30",
+              rows: "2",
+              placeholder: "companyAchievements1",
+            })
+          )
+        );
+        form.append(
+          $("<div>", { class: "text-center mb-2 font-bold" }).append(
+            $("<p>", { text: educationTitle })
+          )
+        );
+
+        // Education section
+        form.append(
+          $("<div>", { class: "text-left mb-2 flex w-auto" }).append(
+            $("<input>", {
+              type: "text",
+              class: "font-bold w-auto",
+              placeholder: "School",
+              name: "School",
+            }),
+            $("<input>", {
+              type: "text",
+              class: "font-bold w-auto",
+              placeholder: "Grad Year",
+              name: "gradYear",
+            })
+          )
+        );
+
+        // Language section
+        form.append(
+          $("<div>", { class: "text-center mb-2 font-bold" }).append(
+            $("<p>", { text: foreignLanguageTitle })
+          )
+        );
+        form.append(
+          $("<div>", {
+            class: "flex font-bold justify-center w-full space-x-10",
+          }).append(
+            $("<p>", { text: "Ярих" }),
+            $("<p>", { text: "Унших" }),
+            $("<p>", { text: "Бичих" })
+          )
+        );
+        form.append(
+          $("<div>", { class: "text-left flex" }).append(
+            $("<input>", { type: "text", placeholder: "language" }),
+            $("<div>", { class: "flex justify-center w-full" }).append(
+              $("<input>", { type: "text", placeholder: "speaking" }),
+              $("<input>", { type: "text", placeholder: "reading" }),
+              $("<input>", { type: "text", placeholder: "writing" })
+            )
+          )
+        );
+
+        form.append(
+          $("<div>", { class: "text-center mb-2 font-bold" }).append(
+            $("<p>", { text: otherInfoTitle })
+          )
+        );
+        form.append(
+          $("<div>", { class: "text-left font-bold" }).append(
+            $("<p>", { text: "Ажил мэргэжлийн зорилго:" })
+          ),
+          $("<div>", { class: "text-center w-full" }).append(
+            $("<textarea>", {
+              class: "w-full",
+              cols: "30",
+              rows: "2",
+              placeholder: "Purpose",
+            })
+          )
+        );
+        form.append(
+          $("<div>", { class: "text-left font-bold" }).append(
+            $("<p>", { text: hobbiesTitle })
+          ),
+          $("<div>", { class: "text-center w-full" }).append(
+            $("<textarea>", {
+              class: "w-full",
+              cols: "30",
+              rows: "2",
+              placeholder: "Hobbies",
+            })
+          )
+        );
+        form.append(
+          $("<div>", { class: "text-left font-bold" }).append(
+            $("<p>", { text: personalAchievementsTitle })
+          ),
+          $("<div>", { class: "text-center w-full" }).append(
+            $("<textarea>", {
+              class: "w-full",
+              cols: "30",
+              rows: "2",
+              placeholder: "personalAchievements",
+            })
+          )
+        );
+        form.append(
+          $("<div>", { class: "text-left font-bold" }).append(
+            $("<p>", { text: skillsTitle })
+          ),
+          $("<div>", { class: "text-center w-full" }).append(
+            $("<textarea>", {
+              class: "w-full",
+              cols: "30",
+              rows: "2",
+              placeholder: "Skills",
+            })
+          )
+        );
+
+
+        $("#divToExport").append(form);
+
+        form.find("input[placeholder='Name']").val(name);
+        form.find("input[placeholder='Email']").val(email);
+        form.find("input[placeholder='City']").val(city);
+        form.find("input[placeholder='Phone']").val(phone);
+        form.find("textarea[placeholder='ShortDesc']").val(shortDescription);
+        form.find("input[placeholder='CompanyName']").val(companyName);
+        form.find("input[name='Start-Date']").val(startDate);
+        form.find("input[name='End-Date']").val(endDate);
+        form.find("input[placeholder='companyCity']").val(companyCity);
+        form.find("input[placeholder='occupation']").val(occupation);
+        form.find("textarea[placeholder='companyAchievements']").val(achievements);
+
+        form.find("input[placeholder='CompanyName1']").val(companyName1);
+        form.find("input[name='Start-Date1']").val(startDate1);
+        form.find("input[name='End-Date1']").val(endDate1);
+        form.find("input[placeholder='companyCity1']").val(companyCity1);
+        form.find("input[placeholder='occupation1']").val(occupation1);
+        form.find("textarea[placeholder='companyAchievements1']").val(achievements1);
+
+        form.find("input[name='School']").val(schoolName);
+        form.find("input[name='gradYear']").val(gradYear);
+        form.find("input[placeholder='language']").val(language);
+        form.find("input[placeholder='speaking']").val(speaking);
+        form.find("input[placeholder='reading']").val(reading);
+        form.find("input[placeholder='writing']").val(writing);
+        form.find("textarea[placeholder='Purpose']").val(purpose);
+        form.find("textarea[placeholder='Hobbies']").val(hobbies);
+        form.find("textarea[placeholder='personalAchievements']").val(personalAchievements);
+        form.find("textarea[placeholder='Skills']").val(Skills);
+
+        return form;
       }
-      function generatePDF() {
-        populateForm();
 
+      function generatePDF() {
+        var form = populateForm();
         var element = document.getElementById("divToExport");
         var opt = {
           margin: 0,
           filename: "my_file.pdf",
           html2canvas: { scale: 4 },
           jsPDF: {
-            unit: "in",
-            format: "letter",
+            unit: "mm",
+            format: "a4", 
             orientation: "portrait",
             precision: 12,
           },
         };
-
         html2pdf().set(opt).from(element).save();
       }
+
       $(document).ready(function () {
         $("#generatePDFButton").click(function () {
           generatePDF();
